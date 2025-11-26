@@ -1,0 +1,38 @@
+// Task Manager API Example
+// Demonstrates multiple models and comprehensive CRUD operations
+
+api "TaskManager" version "1.0.0" at "/api/v1" using sqlite
+
+model Task table "tasks" {
+    title: str required indexed
+    task_description: str
+    completed: bool default false
+    priority: int default 1
+    due_date: datetime
+}
+
+model Tag table "tags" {
+    name: str required unique indexed
+}
+
+// Task endpoints
+endpoint GET "/tasks" -> Task[] description "Get all tasks"
+
+endpoint GET "/tasks/{id}" -> Task description "Get a task by ID"
+
+endpoint POST "/tasks" -> Task description "Create a new task"
+
+endpoint PATCH "/tasks/{id}" -> Task description "Update a task"
+
+endpoint DELETE "/tasks/{id}" -> bool description "Delete a task"
+
+// Tag endpoints
+endpoint GET "/tags" -> Tag[] description "Get all tags"
+
+endpoint GET "/tags/{id}" -> Tag description "Get a tag by ID"
+
+endpoint POST "/tags" -> Tag description "Create a new tag"
+
+endpoint PATCH "/tags/{id}" -> Tag description "Update a tag"
+
+endpoint DELETE "/tags/{id}" -> bool description "Delete a tag"

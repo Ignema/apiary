@@ -1,0 +1,26 @@
+// Pet Store API Example
+// Demonstrates basic CRUD operations for a pet store
+
+api "PetStore" version "1.0.0" at "/api/v1" using sqlite
+
+model Pet table "pets" {
+    name: str required indexed
+    age: int required default 0
+    weight: float
+    vaccinated: bool default false
+}
+
+// List all pets
+endpoint GET "/pets" -> Pet[] description "Get all pets"
+
+// Get a single pet by ID
+endpoint GET "/pets/{id}" -> Pet description "Get a pet by ID"
+
+// Create a new pet
+endpoint POST "/pets" -> Pet description "Create a new pet"
+
+// Update an existing pet
+endpoint PATCH "/pets/{id}" -> Pet description "Update a pet"
+
+// Delete a pet
+endpoint DELETE "/pets/{id}" -> bool description "Delete a pet"

@@ -64,10 +64,7 @@ dmypy.json
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# Generated files
-src/parser/generated/
-*.tokens
-*.interp
+# Generated files (keep ANTLR generated parser files in repo)
 
 # Output directories (generated applications)
 output/

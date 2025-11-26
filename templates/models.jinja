@@ -1,0 +1,26 @@
+"""SQLModel data models for {{ model.name }}"""
+
+from typing import Optional
+from datetime import datetime
+from sqlmodel import SQLModel, Field
+{% for model_def in model.models %}
+
+class {{ model_def.name }}(SQLModel, table=True):
+    """{{ model_def.name }} model"""
+    __tablename__ = "{{ model_def.table_name }}"
+    
+    id: Optional[int] = Field(default=None, primary_key=True)
+{%- for field in model_def.fields %}
+{%- if field.type.value == 'str' %}
+    {{ field.name }}: {% if not field.required %}Optional[str]{% else %}str{% endif %}{% if field.default or field.unique or field.indexed %} = Field({% if field.default %}default="{{ field.default }}"{% endif %}{% if field.unique %}{% if field.default %}, {% endif %}unique=True{% endif %}{% if field.indexed %}{% if field.default or field.unique %}, {% endif %}index=True{% endif %}){% elif not field.required %} = None{% endif %}
+{%- elif field.type.value == 'int' %}
+    {{ field.name }}: {% if not field.required %}Optional[int]{% else %}int{% endif %}{% if field.default or field.unique or field.indexed %} = Field({% if field.default %}default={{ field.default }}{% endif %}{% if field.unique %}{% if field.default %}, {% endif %}unique=True{% endif %}{% if field.indexed %}{% if field.default or field.unique %}, {% endif %}index=True{% endif %}){% elif not field.required %} = None{% endif %}
+{%- elif field.type.value == 'float' %}
+    {{ field.name }}: {% if not field.required %}Optional[float]{% else %}float{% endif %}{% if field.default or field.unique or field.indexed %} = Field({% if field.default %}default={{ field.default }}{% endif %}{% if field.unique %}{% if field.default %}, {% endif %}unique=True{% endif %}{% if field.indexed %}{% if field.default or field.unique %}, {% endif %}index=True{% endif %}){% elif not field.required %} = None{% endif %}
+{%- elif field.type.value == 'bool' %}
+    {{ field.name }}: {% if not field.required %}Optional[bool]{% else %}bool{% endif %}{% if field.default is not none or field.unique or field.indexed %} = Field({% if field.default is not none %}default={{ field.default }}{% endif %}{% if field.unique %}{% if field.default is not none %}, {% endif %}unique=True{% endif %}{% if field.indexed %}{% if field.default is not none or field.unique %}, {% endif %}index=True{% endif %}){% elif not field.required %} = None{% endif %}
+{%- elif field.type.value == 'datetime' %}
+    {{ field.name }}: {% if not field.required %}Optional[datetime]{% else %}datetime{% endif %}{% if field.default or field.unique or field.indexed %} = Field({% if field.default %}default={{ field.default }}{% endif %}{% if field.unique %}{% if field.default %}, {% endif %}unique=True{% endif %}{% if field.indexed %}{% if field.default or field.unique %}, {% endif %}index=True{% endif %}){% elif not field.required %} = None{% endif %}
+{%- endif %}
+{%- endfor %}
+{% endfor %}

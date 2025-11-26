@@ -1,5 +1,9 @@
 # Apiary
 
+[![Tests](https://github.com/Ignema/apiary/workflows/Tests/badge.svg)](https://github.com/Ignema/apiary/actions)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A Model-Driven Engineering (MDE) toolkit that transforms REST API specifications written in a custom Domain-Specific Language (DSL) into production-ready FastAPI applications with SQLModel persistence.
 
 ## Overview
@@ -243,4 +247,8 @@ MIT License
 
 ## Contributing
 
-Contributions are welcome! Feel free to open a pull request with your improvements.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.

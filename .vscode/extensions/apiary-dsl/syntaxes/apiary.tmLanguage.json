@@ -1,0 +1,201 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Apiary DSL",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#api-declaration"
+    },
+    {
+      "include": "#model-declaration"
+    },
+    {
+      "include": "#endpoint-declaration"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.apiary",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "api-declaration": {
+      "patterns": [
+        {
+          "name": "meta.api.apiary",
+          "begin": "\\b(api)\\b",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.apiary"
+            }
+          },
+          "end": "(?=model|endpoint|$)",
+          "patterns": [
+            {
+              "include": "#strings"
+            },
+            {
+              "name": "keyword.other.apiary",
+              "match": "\\b(version|at|using)\\b"
+            },
+            {
+              "name": "constant.language.database.apiary",
+              "match": "\\b(sqlite|postgres)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "model-declaration": {
+      "patterns": [
+        {
+          "name": "meta.model.apiary",
+          "begin": "\\b(model)\\s+(\\w+)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.apiary"
+            },
+            "2": {
+              "name": "entity.name.type.model.apiary"
+            }
+          },
+          "end": "\\}",
+          "patterns": [
+            {
+              "name": "keyword.other.apiary",
+              "match": "\\b(table)\\b"
+            },
+            {
+              "include": "#field-declaration"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#comments"
+            }
+          ]
+        }
+      ]
+    },
+    "field-declaration": {
+      "patterns": [
+        {
+          "name": "meta.field.apiary",
+          "match": "(\\w+)\\s*:\\s*(str|int|float|bool|datetime)\\s*(required|unique|indexed|default)?",
+          "captures": {
+            "1": {
+              "name": "variable.other.field.apiary"
+            },
+            "2": {
+              "name": "storage.type.apiary"
+            },
+            "3": {
+              "name": "storage.modifier.apiary"
+            }
+          }
+        }
+      ]
+    },
+    "endpoint-declaration": {
+      "patterns": [
+        {
+          "name": "meta.endpoint.apiary",
+          "begin": "\\b(endpoint)\\s+(GET|POST|PUT|PATCH|DELETE)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.apiary"
+            },
+            "2": {
+              "name": "constant.language.http-method.apiary"
+            }
+          },
+          "end": "$",
+          "patterns": [
+            {
+              "name": "string.quoted.double.path.apiary",
+              "match": "\"[^\"]*\""
+            },
+            {
+              "name": "keyword.operator.arrow.apiary",
+              "match": "->"
+            },
+            {
+              "name": "entity.name.type.response.apiary",
+              "match": "\\b(\\w+)(\\[\\])?\\b"
+            },
+            {
+              "name": "keyword.other.apiary",
+              "match": "\\b(description)\\b"
+            },
+            {
+              "include": "#strings"
+            }
+          ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.apiary",
+          "match": "\\b(api|model|endpoint|table)\\b"
+        },
+        {
+          "name": "keyword.other.apiary",
+          "match": "\\b(version|at|using|description|required|unique|indexed|default)\\b"
+        },
+        {
+          "name": "constant.language.http-method.apiary",
+          "match": "\\b(GET|POST|PUT|PATCH|DELETE)\\b"
+        },
+        {
+          "name": "storage.type.apiary",
+          "match": "\\b(str|int|float|bool|datetime)\\b"
+        },
+        {
+          "name": "constant.language.database.apiary",
+          "match": "\\b(sqlite|postgres)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.apiary",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.apiary",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.apiary",
+          "match": "\\b\\d+(\\.\\d+)?\\b"
+        },
+        {
+          "name": "constant.language.boolean.apiary",
+          "match": "\\b(true|false)\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.apiary"
+}

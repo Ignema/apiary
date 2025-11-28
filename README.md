@@ -52,22 +52,7 @@ uv sync --extra dev
 
 Create a file `myapi.api` with your API specification:
 
-```
-api "PetStore" version "1.0.0" at "/api/v1" using sqlite
-
-model Pet table "pets" {
-    name: str required indexed
-    age: int required default 0
-    weight: float
-    vaccinated: bool default false
-}
-
-endpoint GET "/pets" -> Pet[] description "Get all pets"
-endpoint GET "/pets/{id}" -> Pet description "Get a pet by ID"
-endpoint POST "/pets" -> Pet description "Create a new pet"
-endpoint PATCH "/pets/{id}" -> Pet description "Update a pet"
-endpoint DELETE "/pets/{id}" -> bool description "Delete a pet"
-```
+![Apiary DSL Syntax Highlighting](docs/images/syntax-highlighting.png)
 
 ### 2. Generate FastAPI Application
 

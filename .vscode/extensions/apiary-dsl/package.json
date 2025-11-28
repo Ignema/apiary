@@ -1,0 +1,34 @@
+{
+  "name": "apiary-dsl",
+  "displayName": "Apiary DSL",
+  "description": "Syntax highlighting for Apiary REST API DSL",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "apiary",
+        "aliases": [
+          "Apiary DSL",
+          "apiary"
+        ],
+        "extensions": [
+          ".api"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "apiary",
+        "scopeName": "source.apiary",
+        "path": "./syntaxes/apiary.tmLanguage.json"
+      }
+    ]
+  }
+}
